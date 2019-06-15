@@ -18,6 +18,7 @@ public class Operation {
         this.operation = operation;
         this.compteDebiter = compteDebiter;
         this.compteCrediter = compteCrediter;
+        this.dateOperation = new Date();
     }
 
     public int getIdOperation() {
