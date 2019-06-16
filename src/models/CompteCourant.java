@@ -15,13 +15,6 @@ public class CompteCourant extends Compte {
         this.compteEpargneMax = compteEpargneMax;
     }
 
-    @Override
-    public void setSolde(float solde){
-        Float oldValue = this.solde;
-        this.solde = solde;
-        this.firePropertyChange("solde",oldValue,solde);
-    }
-
 
     public int getSeuilMin() {
         return seuilMin;

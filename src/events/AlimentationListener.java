@@ -1,7 +1,10 @@
 package events;
 
+import enumeration.TypeOperation;
+import models.Compte;
 import models.CompteCourant;
 import models.CompteEpargne;
+import models.Operation;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,16 +39,31 @@ public class AlimentationListener implements PropertyChangeListener {
         int seuilMinimum = compteCourant.getSeuilMin();
         int seuilMaximum = compteCourant.getSeuilMax();
 
+        float montant;
+
 
         if ((Float) evt.getOldValue() >= seuilMinimum && (Float) evt.getNewValue() < seuilMinimum) {
             CompteEpargne compteEpargne = compteCourant.getCompteEpargneMin();
+            montant = compteCourant.getSeuilMin() - compteCourant.getSolde();
+            if (montant > compteEpargne.getSolde()) {
+                System.out.println("Le solde du compte épargne ne permet pas la réalimentation automatique du compte");
+                return;
+            }
+            context.addOperation(createOperation(compteEpargne, compteCourant, montant));
         } else {
             CompteEpargne compteEpargne = compteCourant.getCompteEpargneMax();
+            montant = compteCourant.getSolde() - compteCourant.getSeuilMax();
+            context.addOperation(createOperation(compteCourant, compteEpargne, montant));
         }
 
-        System.out.println("JE SUIS DANS L'EVENT DE MODIFICATION DE SOLDE CRITIQUE !");
-
-
+        System.out.println("JE SUIS DANS L'EVENT DE MODIFICATION DE SOLDE A CAUSE D'UN MAX OU D'UN MIN !");
 
     }
+
+
+    private Operation createOperation(Compte compteDebiter, Compte compteCrediter, float montant) {
+        return new Operation(context.getMaxIdOperation() + 1, montant, TypeOperation.VIREMENT, compteDebiter, compteCrediter);
+    }
+
+
 }
