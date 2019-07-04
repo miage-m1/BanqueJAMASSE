@@ -12,6 +12,9 @@ public class Operation {
     private Compte compteDebiter;
     private Compte compteCrediter;
 
+    public Operation() {
+    }
+
     public Operation(int idOperation, float montant, TypeOperation operation, Compte compteDebiter, Compte compteCrediter) {
         this.idOperation = idOperation;
         this.montant = montant;
@@ -19,6 +22,18 @@ public class Operation {
         this.compteDebiter = compteDebiter;
         this.compteCrediter = compteCrediter;
         this.dateOperation = new Date();
+    }
+
+    public void activeOperation() {
+        System.out.println("AFFICHAGE DU ACTIVE OPERATION");
+        System.out.println(this.operation);
+        if (!this.operation.equals(TypeOperation.AlimentationInterne)) {
+            this.compteDebiter.setSolde(this.compteDebiter.getSolde() - montant);
+            this.compteCrediter.setSolde(this.compteCrediter.getSolde() + montant);
+        } else {
+            this.compteDebiter.setSolde(this.compteDebiter.getSolde() - montant);
+            this.compteCrediter.setSolde(this.compteCrediter.getSolde() + montant);
+        }
     }
 
     public int getIdOperation() {

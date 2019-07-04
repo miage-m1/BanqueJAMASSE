@@ -17,6 +17,14 @@ public class CompteEpargne extends Compte {
         this.type = type;
     }
 
+    @Override
+    public void setSolde(float solde) {
+        Float oldValue = this.solde;
+        this.solde = solde;
+        this.firePropertyChange("alimentation", oldValue, solde);
+    }
+
+
     public CompteCourant getCompteCourant() {
         return compteCourant;
     }
@@ -47,5 +55,9 @@ public class CompteEpargne extends Compte {
 
     public void setType(TypeEpargne type) {
         this.type = type;
+    }
+
+    public void calculTxInteret() {
+        this.setSolde(getSolde() * (1 + txInteret));
     }
 }

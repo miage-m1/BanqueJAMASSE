@@ -5,5 +5,6 @@ public enum TypeOperation {
     CB,
     GUICHET,
     CHEQUE,
-    INTERET
+    INTERET,
+    AlimentationInterne
 }

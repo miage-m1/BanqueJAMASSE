@@ -1,6 +1,9 @@
 package models;
 
+import enumeration.TypeOperation;
+
 import java.util.Date;
+import java.util.List;
 
 public abstract class Compte extends lib.PropertyChangeSupport {
 
@@ -9,7 +12,7 @@ public abstract class Compte extends lib.PropertyChangeSupport {
     protected Date dateOuverture;
     protected Client proprietaire;
 
-    public Compte(float solde, Client proprietaire){
+    public Compte(float solde, Client proprietaire) {
         super();
         this.solde = solde;
         this.proprietaire = proprietaire;
@@ -30,8 +33,14 @@ public abstract class Compte extends lib.PropertyChangeSupport {
     }
 
     public void setSolde(float solde) {
+        //Float oldValue = this.solde;
         this.solde = solde;
+       // this.firePropertyChange("solde", oldValue, solde);
     }
+    /*
+    public void setSolde(float solde, String interne) {
+        this.solde = solde;
+    }*/
 
     public Client getPropietaire() {
         return proprietaire;
